@@ -4,14 +4,14 @@ This repository tracks my daily learning progress. On Day 01, I configured the l
 
 ---
 
-## 🛠️ Task 1 & 2: Environment & Git Setup
+## Task 1 & 2: Environment & Git Setup
 - Installed: **Python 3, Node.js, NPM, Git, VS Code, and Postman**
 - Configured passwordless authentication securely using **SSH Keys** (`id_ed25519.pub`).
 - Structured workspace folder layout with an active `.gitignore` safety filter.
 
 ---
 
-## 🚀 Task 3: Django "Hello API" Implementation
+## Task 3: Django "Hello API" Implementation
 
 ### Project Execution Flow
 ```bash
@@ -32,7 +32,7 @@ Developed inside `hello/views.py` using DRF's `APIView`:
 
 ---
 
-## 📊 Verification Screenshots
+## Verification Screenshots
 
 ### 1. GET — Static Greeting
 - **URL:** `http://127.0.0.1:8000/api/hello/`
