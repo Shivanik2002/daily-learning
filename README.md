@@ -20,7 +20,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install django djangorestframework
 
-# Start Server
+## Start Server
 python manage.py runserver
 ```
 
