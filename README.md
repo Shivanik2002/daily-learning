@@ -56,3 +56,60 @@ Developed inside `hello/views.py` using DRF's `APIView`:
 - **Status Code:** `400 Bad Request`
 - **Output Screenshot:**
 ![Validation Error Output](screenshots/post-error.png)
+
+---
+
+## Task 4: React "Hello" Application
+
+### Project Execution Flow
+```bash
+# Initialize and launch the React application
+cd day-01
+npm create vite@latest frontend -- --template react
+cd frontend && npm install
+npm run dev
+```
+
+### Component Architecture
+Developed inside `src/App.jsx` using modular UI structures:
+- **Header Component:** Dynamic header accepting a custom rendering `title` prop.
+- **Counter Component:** State-driven utility utilizing `useState` to manage reactive `increment`, `decrement`, and `reset` lifecycle functions.
+- **Greeting Input Component:** Captures real-time text entries via input data-binding to display a fluid `"Hello <input>"` welcome string instantly.
+
+---
+
+## Task 5: Conceptual Documentation
+
+### 1. REST APIs & Core HTTP Methods
+A **REST API** is an architectural pattern that enables communication between a client (frontend) and a server (backend) using standard HTTP protocol requests:
+- **GET:** Safely retrieves data from a resource without changing anything.
+- **POST:** Submits new data to create a new resource on the server.
+- **PUT:** Updates or completely replaces an existing target resource.
+- **PATCH:** Modifies an existing resource with partial, specific updates.
+- **DELETE:** Permanently removes a targeted resource.
+
+### 2. HTTP Status Codes Reference Guide
+- **200 OK:** The request succeeded, and data was fetched or loaded successfully.
+- **201 Created:** The request succeeded and resulted in a brand-new resource being created.
+- **400 Bad Request:** The server cannot understand or process the request due to missing arguments or bad syntax.
+- **401 Unauthorized:** Authentication is missing or has failed (the server does not know who you are).
+- **403 Forbidden:** The server understands who you are, but you do not have permission to access that file or folder.
+- **404 Not Found:** The server cannot find the requested resource or URL link path.
+- **500 Internal Server Error:** Something broke directly inside the backend server code.
+
+### 3. Django Project vs. Django App
+- **Django Project:** The entire website container configuration. It handles grand settings like databases, security keys, and global roadmaps (`urls.py`).
+- **Django App:** A small, modular submodule within the project focused on a single independent task (e.g., our `hello` app only handles greetings and math view logic).
+
+### 4. React Components, Props, and State
+- **Components:** Independent, reusable Lego blocks of code that build the visual User Interface.
+- **Props:** Read-only characteristics or parameters passed down from a parent component to a child component (like our title string).
+- **State:** Active internal memory managed inside a component using hooks like `useState`. When State values change, React automatically rerenders that part of the screen.
+
+---
+
+## Developer Completion Checklist
+- [x] 3 Django API endpoints functioning and tested.
+- [x] 3 React components built and rendering correctly.
+- [x] README populated with documentation and screenshots.
+- [x] Verified `venv/` and `node_modules/` are excluded via `.gitignore`.

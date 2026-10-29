@@ -1,0 +1,120 @@
+/* Core Page Reset & Base Colors */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f3f4f6; /* Modern light gray background */
+  color: #1f2937;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Master Centered Wrapper Box */
+.app-container {
+  max-width: 650px;
+  margin: 3rem auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Clean Header Component Layout */
+.app-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 2rem;            /* Scaled perfectly for standard viewport boundaries */
+  font-weight: 800;
+  color: #4f46e5;            /* Premium Indigo Accent */
+  margin: 0;
+  letter-spacing: -0.025em;
+  line-height: 1.4;          /* Critical Fix: Creates safety vertical space cushion */
+  word-wrap: break-word;     /* Prevents string wrapping overlaps */
+  padding: 0 10px;           /* Sidewall padding guard */
+}
+
+/* Uniform Standard White Cards */
+.card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  color: #374151;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Counter Display Typography */
+.count-display {
+  font-size: 4rem;
+  font-weight: 800;
+  margin: 1rem 0 2rem 0;
+  color: #111827;
+  line-height: 1;
+}
+
+/* Flexbox Centered Row Buttons */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.inc { background-color: #10b981; color: white; } /* Emerald Green */
+.inc:hover { background-color: #059669; }
+
+.dec { background-color: #f59e0b; color: white; } /* Amber Orange */
+.dec:hover { background-color: #d97706; }
+
+.rst { background-color: #ef4444; color: white; } /* Crimson Red */
+.rst:hover { background-color: #dc2626; }
+
+/* Real-Time Inputs Component */
+.text-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  font-size: 1.05rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.text-input:focus {
+  border-color: #4f46e5; /* Match Indigo Header */
+}
+
+.greeting-text {
+  color: #4f46e5;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
