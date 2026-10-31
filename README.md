@@ -113,3 +113,68 @@ A **REST API** is an architectural pattern that enables communication between a 
 - [x] 3 React components built and rendering correctly.
 - [x] README populated with documentation and screenshots.
 - [x] Verified `venv/` and `node_modules/` are excluded via `.gitignore`.
+
+
+#______________________________________________________________________________________________________________
+
+# Day 04 Tasks - Authentication, Custom User & Permissions Notes
+
+## 📋 Task Checklist Status
+- [x] Custom User Model (Email-based authentication with roles)
+- [x] JWT Integration (SimpleJWT framework with a 60-minute token lifetime restriction)
+- [x] Fine-Grained Permissions (Custom IsSellerOrReadOnly & admin restrictions)
+- [x] 5 Postman Verification Test Case Screenshots Saved
+
+---
+
+## Core Concept Notes
+
+### Why set AUTH_USER_MODEL before the first migrate?
+Django’s internal applications (like `admin`, `auth`, and `contenttypes`) create initial database tables and relational foreign key constraints pointing to the user model during their very first migration cycle. 
+
+If you run migrations using the default configuration first and try to change it to a custom model later, it breaks existing foreign key constraints inside the database tables. Defining `AUTH_USER_MODEL = 'library.User'` before the first migrate ensures Django constructs the database schema cleanly around your custom user setup from day one without throwing schema conflicts.
+
+---
+
+## 🌐 API Endpoint Routing Matrix
+
+| HTTP Method | API URL Path | Target Action / Operational Logic | Access Constraint |
+| :--- | :--- | :--- | :--- |
+| **POST** | `/api/auth/register/` | Public registration wrapper. Validates role constraints (blocks admin role signups) and password minimum bounds (min 6 chars). | Open to All |
+| **POST** | `/api/auth/login/` | Evaluates email credentials against the custom manager layout and returns valid access & refresh token pairs. | Open to All |
+| **POST** | `/api/auth/refresh/` | SimpleJWT token refresh view to renew active access token lifespans. | Open to All |
+| **GET / PATCH** | `/api/auth/me/` | Retrieves or updates current user profile data context. Role and Email are restricted to read-only fields. | Authenticated Users Only |
+| **GET** | `/api/users/` | Administrative global system user list dashboard. | Administrators Only |
+| **GET** | `/api/books/` | Lists all active book assets inside the database. | Open to All |
+| **POST** | `/api/books/` | Creates a new book entry record and auto-binds the authenticated requester as the owner metadata anchor. | Sellers Only |
+| **PUT / PATCH** | `/api/books/<id>/` | Mutates existing book records. Restricted to the exact user who created the asset row. | Asset Owner Only |
+| **DELETE** | `/api/books/<id>/` | Purges book database entries permanently. Restricted to the exact creator. | Asset Owner Only |
+
+---
+
+## 📸 Task 4 — Postman Verification Screenshots
+
+### 1. Blocked Admin Registration Privilege Attempt
+* **Path:** `POST /api/auth/register/`
+* **Status Expected:** `400 Bad Request`
+![Register Admin Failure](screenshots/01_register_admin_fail.png)
+
+### 2. Token Retrieval Authentication Check
+* **Path:** `POST /api/auth/login/`
+* **Status Expected:** `200 OK`
+![Login Tokens Success](screenshots/02_login_success.png)
+
+### 3. Anonymous Book Post Blocked
+* **Path:** `POST /api/books/`
+* **Status Expected:** `401 Unauthorized`
+![Anonymous Block 401](screenshots/03_anon_post_401.png)
+
+### 4. Customer Book Post Blocked
+* **Path:** `POST /api/books/`
+* **Status Expected:** `403 Forbidden`
+![Customer Block 403](screenshots/04_customer_post_403.png)
+
+### 5. Cross-Seller Data Mutation Isolation Assertion
+* **Path:** `PATCH /api/books/1/`
+* **Status Expected:** `403 Forbidden`
+![Cross Seller Block 403](screenshots/05_cross_seller_patch_403.png)

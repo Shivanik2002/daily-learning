@@ -41,6 +41,14 @@ class AuthorSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     # Task 1: Read-only field fetching the author's name
     author_name = serializers.CharField(source='author.name', read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.email', read_only=True)
+    
+    # 🫵 FIX: Explicitly tell the serializer that author is completely optional
+    author = serializers.PrimaryKeyRelatedField(
+        queryset=Author.objects.all(), 
+        required=False, 
+        allow_null=True
+    )
 
     class Meta:
         model = Book

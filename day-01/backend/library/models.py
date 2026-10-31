@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -18,7 +19,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('role', 'admin')
         return self.create_user(email, password, **extra_fields)
 
-# ---- ADD THIS FOR TASK 1 ----
+
 class User(AbstractUser):
     ROLE_CHOICES = (
         ('customer', 'Customer'),
@@ -48,14 +49,17 @@ class Author(models.Model):
     def __str__(self):
         return self.name
 
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books', null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True)
     published_on = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_books')
 
     def __str__(self):
         return self.title

@@ -34,6 +34,7 @@ class BookViewSet(viewsets.ModelViewSet):
     permission_classes = [IsSellerOrReadOnly]
 
     def perform_create(self, serializer):
+        # This dynamically hooks up the active login session profile as the owner
         serializer.save(owner=self.request.user)
 
 
