@@ -316,3 +316,26 @@ If you run migrations using the default configuration first and try to change it
 * **Status Expected:** `403 Forbidden`
 ![Cross Seller Block 403](screenshots/05_cross_seller_patch_403.png)
 __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+---
+
+# Day 05 Tasks — React Fundamentals Concept Notes
+
+### 1. Why do lists need a key prop?
+
+React utilizes the `key` prop as a stable unique identifier to track individual nodes within a mapped loop across renders. When items are added, removed, or re-sorted, the key allows React's reconciliation algorithm to accurately identify exactly which element changed, matching the Virtual DOM state precisely. Without keys, React is forced to re-render the entire list collection sequentially, which heavily degrades interface speeds and breaks internal state persistence metrics (like focused input highlights).
+
+### 2. When does useEffect run, and what does its dependency array do?
+
+The `useEffect` hook runs asynchronously right after the layout browser completes rendering changes to the screen. Its dependency array acts as an explicit conditional evaluation vector:
+* **No Array provided:** Runs after the initial mounting render and executes continuously on every single update re-render cycle.
+* **Empty Array (`[]`):** Runs exactly once when the hosting component initially mounts to the layout view tree.
+* **Array with state variables (`[data]`):** Fires once on mounting, and triggers secondary executions subsequently if and only if any specified variable value reference changes between render operations.
+
+### 3. What is the difference between a controlled and an uncontrolled input?
+
+* **Controlled Input:** The input element's current value attribute is directly wired to a React state variable wrapper (via `value={state}`), making React the absolute "Single Source of Truth." Every keystroke triggers an `onChange` update event handler that mutates the state, causing instant validation synchronization.
+
+* **Uncontrolled Input:** The element tracks its input state internally within the regular browser DOM layer. React does not supervise live value updates. Instead, the application accesses data values on-demand at a later time (like clicking a final submit hook) using direct references like a `useRef()` pointer.
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
