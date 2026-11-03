@@ -339,3 +339,57 @@ The `useEffect` hook runs asynchronously right after the layout browser complete
 * **Uncontrolled Input:** The element tracks its input state internally within the regular browser DOM layer. React does not supervise live value updates. Instead, the application accesses data values on-demand at a later time (like clicking a final submit hook) using direct references like a `useRef()` pointer.
 
 __________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+# Day 06 — React Router + Axios Full-Stack Integration
+
+## Task Checklist Status
+ Backend CORS Setup (Configured trusted origin domains via `django-cors-headers`)
+* [x] Dynamic Client Routing (Structured 6 distinct application paths using `react-router-dom`)
+* [x] Centralized Axios Instance Service (Configured dynamic base routes mapping with `.env` files)
+* [x] Full CRUD Implementation (Connected list fetching, item details, deletion confirms, and shared form states)
+* [x] Live Input Search Param Mapping (`?search=` query parameters sync)
+* [x] UI Pagination Componentry (Asynchronous Next and Previous page boundary controls)
+
+---
+
+## Core Full-Stack Concept Notes
+
+### 1. What is CORS and why is it required?
+CORS (Cross-Origin Resource Sharing) is a structural security protocol enforced natively by web browsers to restrict web applications running at one origin domain from requesting data from an external origin server. Since our React frontend dashboard loads on `http://localhost:5173` and our Django backend runs on `http://127.0.0.1:8000`, the browser treats them as completely separate domains and isolates them. Installing `django-cors-headers` and modifying settings allows our API backend to safely trust and authorize incoming frontend client payload tracking loops.
+
+### 2. Benefits of an Axios Instance over raw fetch queries
+* **Base URL Centralization:** Storing the backend server root route inside a global `axios.create` model instance prevents developers from writing redundant full URL paths in every component file.
+* **Global Interceptor Injections:** Provides a unified pipeline to automatically attach authorization Bearer tokens or catch global 401/403 token expiration responses.
+* **Automatic JSON Parsing:** Eliminates the requirement to call intermediate `.json()` browser transformations explicitly, returning the resolved server data objects instantly.
+
+---
+
+## Full-Stack Application Routing Matrix
+
+| HTTP Method | Frontend URL Path | Axios API Endpoint Route | Visual Component View | Access / Target Behavior |
+| :--- | :--- | :--- | :--- | :--- |
+| **GET** | `/` | *None* | `Home` | Landing dashboard welcoming users to the database panel. |
+| **GET** | `/books` | `/api/books/?search=&page=` | `BookList` | Inventory grid view tracking pagination maps and live query search updates. |
+| **GET** | `/books/:id` | `/api/books/:id/` | `BookDetail` | Individual catalog display rendering item attributes using `useParams()`. |
+| **POST** | `/books/new` | `/api/books/` | `BookForm` (Add Mode) | Shared state controlled form processing new row creations. |
+| **PATCH** | `/books/:id/edit` | `/api/books/:id/` | `BookForm` (Edit Mode) | Shared state controlled form patching target fields by asset ID. |
+| **DELETE** | *Trigger* | `/api/books/:id/` | *Action Context* | Prompts native browser confirmation dialog boxes before purging rows. |
+| *None* | `*` | *None* | `NotFound` | Wildcard route fallback rendering a custom 404 message layout. |
+
+---
+
+## Task 4 — Full Stack CRUD Verification Screenshots
+
+### 1. Home View
+* **Path Context:** `/` (Home page)
+![Home Catalog](Screenshots/06_frontend_Home.png)
+
+### 1. Live Data Inventory Catalog View
+* **Path Context:** `/books` (Loading records live from Django tables)
+![Live Catalog Grid](Screenshots/07_frontend_Books_catalog.png)
+
+### 2. Wildcard Route Catchment Fallback View
+* **Path Context:** `/invalid-page-test` (React Router custom 404 handler)
+![Custom 404 Error Screen](Screenshots/08_frontend_not_found_404.png)
+
+__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
